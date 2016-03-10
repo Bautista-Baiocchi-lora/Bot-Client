@@ -33,7 +33,7 @@ public final class Stub
   {
     try
     {
-      return new URL("http://www.battle-scape.com");
+      return new URL("http://www.soulsplit3.com");
     }
     catch (MalformedURLException localMalformedURLException)
     {

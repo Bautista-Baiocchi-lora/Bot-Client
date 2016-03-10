@@ -113,10 +113,6 @@ public class Client {
         return this.clientInstance;
     }
 
-    public Object getClientInstance() {
-        return clientInstance;
-    }
-    
     
     public void setClientInstance(Object clientInstance) {
         this.clientInstance = clientInstance;

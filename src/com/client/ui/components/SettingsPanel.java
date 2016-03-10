@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
+import com.client.api.method.Game;
+import com.client.api.method.Menu;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
@@ -35,6 +37,7 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 	private final JButton save, clearCache, network, randoms, reflectionExplorer;
 	private final JToggleButton logger, dialog;
 	private final GridBagConstraints constraints;
+	private Thread getAction;
 	Client client = Engine.client; //For testing loader
 	public SettingsPanel() {
 		instance = this;
@@ -99,12 +102,11 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 		String command = e.getActionCommand();
 		switch (command.toLowerCase()) {
 			case "randoms":
-				//Grabbing openInterfaceID - for testing -
-				eLogger.write(""+Int.getInstance().getInt(Constants.mainClass, "A", Engine.client));
-			
-				
+
+				Menu.sendAction(315, 554, 2, 1167);
 				break;
 
+	
 	}
 		
 	}
