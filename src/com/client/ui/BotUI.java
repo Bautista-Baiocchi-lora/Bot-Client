@@ -11,6 +11,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 
 import com.client.core.Client;
+import com.client.core.Engine;
 import com.client.data.Variables;
 import com.client.ui.components.GamePanel;
 import com.client.ui.components.Logger;
@@ -26,7 +27,9 @@ public class BotUI extends JFrame {
 	private final SideBar sideBar;
 	private final GamePanel gamePanel;
 	private final Logger logger;
-    private Client client;
+
+
+
 	public BotUI() {
 		if (instance != null) {
 			throw new IllegalStateException("Frame already created.");
@@ -62,15 +65,16 @@ public class BotUI extends JFrame {
 	}
 	   private void openNewTab() {
 		   //ripped from my botclient//
-	        client = new Client();
-	        Applet applet = client.getApplet();
+		    
+	        Engine.client = new Client();
+	        Applet applet = Engine.client.getApplet();
 
 	        if (applet != null) {
 	            JPanel panel = new JPanel(new BorderLayout());
 	            panel.add(applet, "Center");
 	            gamePanel.add(panel);
-	            if (client.getClient() == null) {
-	                client.setClientInstance(applet);
+	            if (Engine.client.getClient() == null) {
+	            	Engine.client.setClientInstance(applet);
 	            }
           
 	            applet.init();

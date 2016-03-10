@@ -12,7 +12,6 @@ public class Engine {
 	private static Engine instance;
 	private static BotUI frame;
 	public static Client client;
-	
 	public Engine() {
 		if (instance == null) {
 			instance = this;
