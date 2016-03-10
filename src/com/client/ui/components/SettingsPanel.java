@@ -2,11 +2,14 @@ package com.client.ui.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,11 +23,12 @@ import javax.swing.SwingConstants;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
+import com.client.test.Int;
 import com.client.test.ReflectionShit;
 import com.client.ui.BotUI;
 import com.client.ui.ScriptSelectorUI;
 
-public class SettingsPanel extends JPanel implements ActionListener{
+public class SettingsPanel extends JPanel implements ActionListener, ItemListener{
 	private SettingsPanel instance;
 	private final JLabel colorLabel, titleLabel, dialogLabel, loggerLabel;
 	private final JComboBox colorComboBox;
@@ -67,6 +71,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	}
 	private final void setUpListeners() {
 		randoms.addActionListener(this);
+		colorComboBox.addItemListener(this);;
 
 	}
 	private final void fillPanel() {
@@ -95,13 +100,27 @@ public class SettingsPanel extends JPanel implements ActionListener{
 		switch (command.toLowerCase()) {
 			case "randoms":
 				//Grabbing openInterfaceID - for testing -
-				
-				System.out.println(ReflectionShit.getInt(Constants.mainClass, "A", client.getClient()));
+				eLogger.write(""+Int.getInstance().getInt(Constants.mainClass, "A", Engine.client));
+			
 				
 				break;
 
 	}
 		
 	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getStateChange() == 1) {
+			String command = e.getItem().toString();
+			switch (command.toLowerCase()) {
+				case "black":
+				// GROUND WORK FOR COLOR CHANGE//
+				System.out.println("Setting color - black");
+				break;
+					
+		}
+	}
+}
 
 }

@@ -17,6 +17,7 @@ public class DebugPanel extends JPanel {
 
 	public DebugPanel getDebugPanel() {
 		return instance == null ? instance = new DebugPanel() : instance;
+		
 	}
 
 }

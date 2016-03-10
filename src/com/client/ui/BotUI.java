@@ -2,12 +2,15 @@ package com.client.ui;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import com.client.core.Client;
@@ -29,7 +32,6 @@ public class BotUI extends JFrame {
 	private final Logger logger;
 
 
-
 	public BotUI() {
 		if (instance != null) {
 			throw new IllegalStateException("Frame already created.");
@@ -48,6 +50,7 @@ public class BotUI extends JFrame {
 		}
         setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
+		   
 		sideBar = new SideBar();
 		gamePanel = new GamePanel();
 		logger = new Logger();
@@ -58,9 +61,11 @@ public class BotUI extends JFrame {
 		openNewTab();
 	}
 
+
 	private final void fillFrame() {
 		add(sideBar, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.WEST);
+
 		add(logger, BorderLayout.PAGE_END);
 	}
 	   private void openNewTab() {
