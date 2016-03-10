@@ -1,32 +1,49 @@
 package com.client.ui;
 
+import java.applet.Applet;
 import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.UIManager;
 
+import com.client.core.Client;
 import com.client.data.Variables;
 import com.client.ui.components.GamePanel;
 import com.client.ui.components.Logger;
 import com.client.ui.components.SideBar;
 
 public class BotUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected boolean focused;
 	private static BotUI instance;
 	private final SideBar sideBar;
 	private final GamePanel gamePanel;
 	private final Logger logger;
-
+    private Client client;
 	public BotUI() {
 		if (instance != null) {
 			throw new IllegalStateException("Frame already created.");
 		}
 		instance = this;
-		setTitle("Botting Client");
+		setTitle("El Maestro & Ethan's Botting Client");
 		setIconImage(new ImageIcon(
 				getClass().getClassLoader().getResource("com/client/ui/images/icon.png"))
 						.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		try{
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+        setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
 		sideBar = new SideBar();
 		gamePanel = new GamePanel();
@@ -35,6 +52,7 @@ public class BotUI extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		pack();
+		openNewTab();
 	}
 
 	private final void fillFrame() {
@@ -42,6 +60,28 @@ public class BotUI extends JFrame {
 		add(gamePanel, BorderLayout.WEST);
 		add(logger, BorderLayout.PAGE_END);
 	}
+	   private void openNewTab() {
+		   //ripped from my botclient//
+	        client = new Client();
+	        Applet applet = client.getApplet();
+
+	        if (applet != null) {
+	            JPanel panel = new JPanel(new BorderLayout());
+	            panel.add(applet, "Center");
+	            gamePanel.add(panel);
+	            if (client.getClient() == null) {
+	                client.setClientInstance(applet);
+	            }
+          
+	            applet.init();
+	            applet.start();
+	    
+	         
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Could not open new tab.");
+	        }
+	    }
+
 
 	public static BotUI getInstance() {
 		return instance == null ? instance = new BotUI() : instance;

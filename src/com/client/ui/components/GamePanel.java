@@ -1,17 +1,21 @@
 package com.client.ui.components;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GamePanel instance;
 
 	public GamePanel() {
 		instance = this;
-		setPreferredSize(new Dimension(500, 350));
+	    setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(765, 505));
 	}
 
 	public GamePanel getInstance() {
