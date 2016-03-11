@@ -5,9 +5,11 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 
+import com.client.core.Engine;
 import com.client.data.Variables;
 import com.client.ui.components.GamePanel;
 import com.client.ui.components.logger.Logger;
@@ -40,12 +42,13 @@ public class BotUI extends JFrame {
 		setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
 		sideBar = new SideBar();
-		gamePanel = new GamePanel(getApplet());
+		gamePanel = new GamePanel();
 		logger = new Logger();
 		setResizable(false);
 		setLocationRelativeTo(null);
 		fillFrame();
 		pack();
+		openNewTab();
 	}
 
 	private final void fillFrame() {
@@ -53,18 +56,27 @@ public class BotUI extends JFrame {
 		add(gamePanel, BorderLayout.WEST);
 		add(logger, BorderLayout.PAGE_END);
 	}
+	 private void openNewTab() {
+		 
+	        Applet applet = Engine.client.getApplet();
 
-	private Applet getApplet() {
-		final Applet applet = Variables.getEngine().getClient().getApplet();
-		if (applet != null) {
-			if (Variables.getEngine().getClient().getClient() == null) {
-				Variables.getEngine().getClient().setClientInstance(applet);
-			}
-			return applet;
-		}
-		JOptionPane.showMessageDialog(this, "Could not open new tab.");
-		return null;
-	}
+	        if (applet != null) {
+	            JPanel panel = new JPanel(new BorderLayout());
+	            panel.add(applet, "Center");
+	            gamePanel.add(panel);
+	            if (Engine.client.getClient() == null) {
+	            	Engine.client.setClientInstance(applet);
+	            }
+        
+	            applet.init();
+	            applet.start();
+	    
+	         
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Could not open new tab.");
+	        }
+	    }
+	
 
 	public BotUI getInstance() {
 		return instance == null ? instance = new BotUI() : instance;

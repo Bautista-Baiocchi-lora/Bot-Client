@@ -8,7 +8,7 @@ import com.client.ui.components.logger.Logger;
 public class Engine {
 	private Engine instance;
 	private BotUI frame;
-	public Client client;
+	public static Client client;
 
 	public Engine() {
 		instance = this;
