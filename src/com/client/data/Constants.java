@@ -14,6 +14,8 @@ public class Constants {
 	public static String npcClass = "ac";
 	public static String npcDefClass = "J";
 	public static String playerClass = "at";
+	public static String itemClass = "X";
+	public static String RSInterfaceClass = "ax";
 	
 	// CLIENT FIELDS//
 	public static String openInterfaceID = "A";
@@ -30,7 +32,6 @@ public class Constants {
 	public static String playerArray = "cA";
 	public static String myPlayer = "L";
 	public static String loopCycle = "Q";
-	
 	//CHARACTER FIELDS//
 	public static String animation = "D";
 	public static String absX = "aa";
@@ -51,5 +52,12 @@ public class Constants {
 	//NPCDEF FEIDS//
 	public static String getNpcName = "e";
 	public static String getNpcID = "k";
-
+	
+	//ITEM FIELDS//
+	public static String itemID = "X";
+	
+	//RSINTERFACE FIELDS//
+	public static String interfaceItems = "X";
+	public static String interfaceStacks = "W";
+	public static String interfaceCache = "l";
 }

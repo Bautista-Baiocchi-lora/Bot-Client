@@ -39,6 +39,7 @@ public class BotUI extends JFrame {
 		}
 		setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
+
 		sideBar = new SideBar();
 		gamePanel = new GamePanel();
 		new Logger(gamePanel.logArea);
