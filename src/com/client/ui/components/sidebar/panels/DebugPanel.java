@@ -105,7 +105,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Npcs":
 				for(Npc n : Npcs.getNpcs()) {
 					if(n != null) {
-						Logger.write("Name: "+n.getDef().getName() + " - "+n.getDef().getId() + " || Location: "+n.getLocation());
+						Logger.write("Name: "+n.getDef().getName() + " - "+n.getDef().getId() + " || Location: "+n.getLocation() + " Disctance: "+n.distanceTo());
 					}
 				}
 				break;
@@ -116,11 +116,12 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Players":
 				for(Player p : Players.getPlayers()) {
 					if(p != null) {
-						Logger.write("Name: "+p.getName()+" || Location: "+p.getLocation());
+						Logger.write("Name: "+p.getName()+" || Location: "+p.getLocation() + " Distance: "+p.distanceTo());
 					}
 				}
 				break;
 			case "Location":
+				Logger.write("Location: "+Players.myPlayer().getLocation());
 				break;
 			case "Bank":
 				break;
