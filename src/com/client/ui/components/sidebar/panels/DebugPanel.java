@@ -31,8 +31,6 @@ public class DebugPanel extends JPanel implements ActionListener {
 	private final JButton interfaces, npcs, objects, groundItems, players, location, bank,
 			inventory, actions, test;
 	private Client client = Engine.client;
-	boolean debugActions = false;
-	int i = 0;
 	public DebugPanel() {
 		instance = this;
 
@@ -129,47 +127,46 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Inventory":
 				break;
 			case "Actions":
-				break;
-			case "Test":
-				if(debugActions) {
-			if (actionThread == null) {
-				actionThread = new Thread() {
-					public void run() {
-						while (!actionThread.isInterrupted()) {
-							// 27983909
-							Logger.write("Action Listener Started!");
+				if (actionThread == null) {
+					actionThread = new Thread() {
+						public void run() {
 							while (!actionThread.isInterrupted()) {
-								int id = Int.getInstance().getFromIntArray(Constants.mainClass, Constants.menuActionID,
-										client.getClient(), 1);
-								int cmd1 = Int.getInstance().getFromIntArray(Constants.mainClass,
-										Constants.menuActionCmd1, client.getClient(), 1);
-								int cmd2 = Int.getInstance().getFromIntArray(Constants.mainClass,
-										Constants.menuActionCmd2, client.getClient(), 1);
-								int cmd3 = Int.getInstance().getFromIntArray(Constants.mainClass,
-										Constants.menuActionCmd3, client.getClient(), 1);
-								int cmd4 = Int.getInstance().getFromIntArray(Constants.mainClass,
-										Constants.menuActionCmd4, client.getClient(), 1);
+								// 27983909
+								Logger.write("Action Listener Started!");
+								while (!actionThread.isInterrupted()) {
+									int id = Int.getInstance().getFromIntArray(Constants.mainClass, Constants.menuActionID,
+											client.getClient(), 1);
+									int cmd1 = Int.getInstance().getFromIntArray(Constants.mainClass,
+											Constants.menuActionCmd1, client.getClient(), 1);
+									int cmd2 = Int.getInstance().getFromIntArray(Constants.mainClass,
+											Constants.menuActionCmd2, client.getClient(), 1);
+									int cmd3 = Int.getInstance().getFromIntArray(Constants.mainClass,
+											Constants.menuActionCmd3, client.getClient(), 1);
+									int cmd4 = Int.getInstance().getFromIntArray(Constants.mainClass,
+											Constants.menuActionCmd4, client.getClient(), 1);
 
-								Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: " + cmd3 + " cmd4 :" + cmd4
-										+ " id: " + id);
-								try {
-									Thread.sleep(500);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+									Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: " + cmd3 + " cmd4 :" + cmd4
+											+ " id: " + id);
+									try {
+										Thread.sleep(500);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 								}
 							}
 						}
-					}
-				};
+					};
 
-				actionThread.start();
-			} else {
-				actionThread.interrupt();
-				actionThread = null;
-				Logger.write("Stopped the shit");
-			}
+					actionThread.start();
 				} else {
+					actionThread.interrupt();
+					actionThread = null;
+					Logger.write("Stopped the shit");
+				}
+				break;
+			case "Test":
+				
 					
 					final Npc[] n1 = Npcs.getNearest("Man");
 					Npc n = null;
@@ -177,10 +174,9 @@ public class DebugPanel extends JPanel implements ActionListener {
 						n = n1[0];
 					if(n != null) {
 						Logger.write("Found: "+n.getDef().getName());
-						n.interact(i);
-						i++;
+						n.interact(1);
 					}
-				}
+				
 				break;
 			default:
 				Logger.writeWarning("Error in debug panel action listener.");
