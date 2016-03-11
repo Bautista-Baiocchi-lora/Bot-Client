@@ -1,29 +1,42 @@
 package com.client.ui.components.logger;
 
+import java.awt.Font;
+
 import javax.swing.JTextArea;
 
-public class Logger  {
-	public static JTextArea logArea;
-	
+public class Logger extends JTextArea {
+	private static JTextArea logArea;
+
+	public Logger() {
+		super(8, 5);
+		logArea = this;
+		setEditable(false);
+		setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
+		setLineWrap(true);
+	}
+
 	public static void write(final String str) {
-		logArea.append("[Bot] \t" + str + "\n");
-		logArea.setCaretPosition(logArea.getDocument().getLength());
+		logArea.append("[N/A]   " + str + "\n");
 	}
 
 	public static void writeException(final String str) {
-		logArea.append("[Bot][EXCEPTION] \t" + str + "\n");
-		logArea.setCaretPosition(logArea.getDocument().getLength());
+		logArea.append("[N/A][EXCEPTION]   " + str + "\n");
 	}
 
 	public static void writeWarning(final String str) {
-		logArea.append("[Bot][WARNING] \t" + str + "\n");
-		logArea.setCaretPosition(logArea.getDocument().getLength());
+		logArea.append("[N/A][WARNING]   " + str + "\n");
 	}
 
-	public Logger(JTextArea logArea) {
-		Logger.logArea = logArea;
+	public static void write(final String str, LogType type) {
+		logArea.append("[" + type.getType() + "]   " + str + "\n");
 	}
 
+	public static void writeException(final String str, LogType type) {
+		logArea.append("[" + type.getType() + "][EXCEPTION]   " + str + "\n");
+	}
 
+	public static void writeWarning(final String str, LogType type) {
+		logArea.append("[" + type.getType() + "][WARNING]   " + str + "\n");
+	}
 
 }

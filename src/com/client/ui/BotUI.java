@@ -11,7 +11,9 @@ import javax.swing.UIManager;
 import com.client.core.Engine;
 import com.client.data.Variables;
 import com.client.ui.components.GamePanel;
+import com.client.ui.components.logger.LogType;
 import com.client.ui.components.logger.Logger;
+import com.client.ui.components.logger.LoggerPane;
 import com.client.ui.components.sidebar.SideBar;
 
 public class BotUI extends JFrame {
@@ -39,43 +41,37 @@ public class BotUI extends JFrame {
 		}
 		setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
-
 		sideBar = new SideBar();
-		gamePanel = new GamePanel();
-		new Logger(gamePanel.logArea);
+		gamePanel = new GamePanel(new LoggerPane(new Logger()));
 		setResizable(false);
 		setLocationRelativeTo(null);
 		fillFrame();
 		pack();
-		openNewTab();
+		addApplet();
+		for(int i =0; i <50;i++){
+		Logger.write("here", LogType.CLINET);
+		}
 	}
 
 	private final void fillFrame() {
 		add(sideBar, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.WEST);
-		
-	}
-	 private void openNewTab() {
-		 
-	        Applet applet = Engine.client.getApplet();
 
-	        if (applet != null) {
-	          
-	            gamePanel.add(applet, "Center");
-	           
-	            if (Engine.client.getClient() == null) {
-	            	Engine.client.setClientInstance(applet);
-	            }
-        
-	            applet.init();
-	            applet.start();
-	    
-	         
-	        } else {
-	            JOptionPane.showMessageDialog(this, "Could not open new tab.");
-	        }
-	    }
-	
+	}
+
+	private void addApplet() {
+		final Applet applet = Engine.client.getApplet();
+		if (applet != null) {
+			gamePanel.add(applet, "Center");
+			if (Engine.client.getClient() == null) {
+				Engine.client.setClientInstance(applet);
+			}
+			applet.init();
+			applet.start();
+		} else {
+			JOptionPane.showMessageDialog(this, "Could not open new tab.");
+		}
+	}
 
 	public BotUI getInstance() {
 		return instance == null ? instance = new BotUI() : instance;

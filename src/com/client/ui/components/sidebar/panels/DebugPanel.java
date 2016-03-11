@@ -3,6 +3,7 @@ package com.client.ui.components.sidebar.panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,9 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.client.api.method.Game;
 import com.client.api.method.Npcs;
@@ -30,7 +33,9 @@ public class DebugPanel extends JPanel implements ActionListener {
 	private final GridBagConstraints constraints;
 	private final JButton interfaces, npcs, objects, groundItems, players, location, bank,
 			inventory, actions, test;
+	private final JLabel titleLabel;
 	private Client client = Engine.client;
+
 	public DebugPanel() {
 		instance = this;
 
@@ -40,6 +45,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 		constraints.ipadx = 10;
 		constraints.insets = new Insets(10, 0, 0, 0);
 
+		titleLabel = new JLabel("Debug", SwingConstants.CENTER);
 		interfaces = new JButton("Interface");
 		npcs = new JButton("Npcs");
 		objects = new JButton("Objects");
@@ -52,7 +58,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 		test = new JButton("Test");
 
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		setLayout(new GridLayout());
+		setLayout(new GridBagLayout());
 		setUpListeners();
 		fillPanel();
 	}
@@ -60,12 +66,11 @@ public class DebugPanel extends JPanel implements ActionListener {
 	private void addComponent(final int x, final int y, final JComponent comp) {
 		constraints.gridx = x;
 		constraints.gridy = y;
-		comp.setPreferredSize(new Dimension(60, 14));
 		add(comp, constraints);
 	}
 
 	private void fillPanel() {
-		addComponent(0, 0, interfaces);
+		addComponent(0, 0, titleLabel);
 		addComponent(0, 1, npcs);
 		addComponent(0, 2, objects);
 		addComponent(0, 3, groundItems);
@@ -75,6 +80,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 		addComponent(0, 7, inventory);
 		addComponent(0, 8, actions);
 		addComponent(0, 9, test);
+		addComponent(0, 10, interfaces);
 	}
 
 	private void setUpListeners() {
@@ -100,12 +106,14 @@ public class DebugPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 		switch (command) {
 			case "Interface":
-				Logger.write("Parent Interface: "+Game.getOpenInterfaceID());
+				Logger.write("Parent Interface: " + Game.getOpenInterfaceID());
 				break;
 			case "Npcs":
-				for(Npc n : Npcs.getNpcs()) {
-					if(n != null) {
-						Logger.write("Name: "+n.getDef().getName() + " - "+n.getDef().getId() + " || Location: "+n.getLocation() + " Disctance: "+n.distanceTo());
+				for (Npc n : Npcs.getNpcs()) {
+					if (n != null) {
+						Logger.write("Name: " + n.getDef().getName() + " - " + n.getDef().getId()
+								+ " || Location: " + n.getLocation() + " Disctance: "
+								+ n.distanceTo());
 					}
 				}
 				break;
@@ -114,14 +122,15 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Ground Items":
 				break;
 			case "Players":
-				for(Player p : Players.getPlayers()) {
-					if(p != null) {
-						Logger.write("Name: "+p.getName()+" || Location: "+p.getLocation() + " Distance: "+p.distanceTo());
+				for (Player p : Players.getPlayers()) {
+					if (p != null) {
+						Logger.write("Name: " + p.getName() + " || Location: " + p.getLocation()
+								+ " Distance: " + p.distanceTo());
 					}
 				}
 				break;
 			case "Location":
-				Logger.write("Location: "+Players.myPlayer().getLocation());
+				Logger.write("Location: " + Players.myPlayer().getLocation());
 				break;
 			case "Bank":
 				break;
@@ -135,18 +144,24 @@ public class DebugPanel extends JPanel implements ActionListener {
 								// 27983909
 								Logger.write("Action Listener Started!");
 								while (!actionThread.isInterrupted()) {
-									int id = Int.getInstance().getFromIntArray(Constants.mainClass, Constants.menuActionID,
+									int id = Int.getInstance().getFromIntArray(Constants.mainClass,
+											Constants.menuActionID,
 											client.getClient(), 1);
-									int cmd1 = Int.getInstance().getFromIntArray(Constants.mainClass,
+									int cmd1 = Int.getInstance().getFromIntArray(
+											Constants.mainClass,
 											Constants.menuActionCmd1, client.getClient(), 1);
-									int cmd2 = Int.getInstance().getFromIntArray(Constants.mainClass,
+									int cmd2 = Int.getInstance().getFromIntArray(
+											Constants.mainClass,
 											Constants.menuActionCmd2, client.getClient(), 1);
-									int cmd3 = Int.getInstance().getFromIntArray(Constants.mainClass,
+									int cmd3 = Int.getInstance().getFromIntArray(
+											Constants.mainClass,
 											Constants.menuActionCmd3, client.getClient(), 1);
-									int cmd4 = Int.getInstance().getFromIntArray(Constants.mainClass,
+									int cmd4 = Int.getInstance().getFromIntArray(
+											Constants.mainClass,
 											Constants.menuActionCmd4, client.getClient(), 1);
 
-									Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: " + cmd3 + " cmd4 :" + cmd4
+									Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: "
+											+ cmd3 + " cmd4 :" + cmd4
 											+ " id: " + id);
 									try {
 										Thread.sleep(500);
@@ -167,17 +182,16 @@ public class DebugPanel extends JPanel implements ActionListener {
 				}
 				break;
 			case "Test":
-				
-					
-					final Npc[] n1 = Npcs.getNearest("Man");
-					Npc n = null;
-					if (n1.length > 0)
-						n = n1[0];
-					if(n != null) {
-						Logger.write("Found: "+n.getDef().getName());
-						n.interact(1);
-					}
-				
+
+				final Npc[] n1 = Npcs.getNearest("Man");
+				Npc n = null;
+				if (n1.length > 0)
+					n = n1[0];
+				if (n != null) {
+					Logger.write("Found: " + n.getDef().getName());
+					n.interact(1);
+				}
+
 				break;
 			default:
 				Logger.writeWarning("Error in debug panel action listener.");
