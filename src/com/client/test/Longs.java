@@ -3,37 +3,34 @@ package com.client.test;
 import java.lang.reflect.Field;
 
 import com.client.core.Client;
-import com.client.core.Engine;
+import com.client.data.Variables;
 
 public class Longs {
-	private Client client = Engine.client;
-	
 	public static Longs instance;
-	
-	
+
+	public static Longs getInstance() {
+		if (instance == null) {
+			instance = new Longs();
+		}
+		return instance;
+	}
+
+	private final Client client = Variables.getEngine().getClient();
+
 	public Longs() {
 		instance = this;
 	}
-	
-	   public long getLong(String clazz, String field, Object obj) {
-	        try {
-	            ClassLoader cl = client.classLoader;
-	            Class<?> c = cl.loadClass(clazz);
-	            Field f = c.getDeclaredField(field);
-	            f.setAccessible(true);
-	            return (long) f.get(obj);
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        return 0;
-	    }
 
-	
-	
-	 public static Longs getInstance() {
-	        if (instance == null) {
-	            instance = new Longs();
-	        }
-	        return instance;
-	    }
+	public long getLong(final String clazz, final String field, final Object obj) {
+		try {
+			final ClassLoader cl = client.classLoader;
+			final Class<?> c = cl.loadClass(clazz);
+			final Field f = c.getDeclaredField(field);
+			f.setAccessible(true);
+			return (long) f.get(obj);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

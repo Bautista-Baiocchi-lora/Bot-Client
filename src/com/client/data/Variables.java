@@ -12,15 +12,15 @@ public class Variables {
 		return clientColor;
 	}
 
-	public static void setClientColor(Color color) {
-		clientColor = color;
-	}
-
 	public static Engine getEngine() {
 		return engine;
 	}
 
-	public static void setEngine(Engine i) {
+	public static void setClientColor(final Color color) {
+		clientColor = color;
+	}
+
+	public static void setEngine(final Engine i) {
 		engine = i;
 	}
 

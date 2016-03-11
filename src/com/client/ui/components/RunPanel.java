@@ -1,10 +1,8 @@
 package com.client.ui.components;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +20,7 @@ public class RunPanel extends JPanel implements ActionListener {
 	private RunPanel instance;
 	private final JButton run, stop, pause, directory;
 	private final JLabel titleLabel;
-	private GridBagConstraints constraints;
+	private final GridBagConstraints constraints;
 
 	public RunPanel() {
 		instance = this;
@@ -46,34 +44,9 @@ public class RunPanel extends JPanel implements ActionListener {
 		fillPanel();
 	}
 
-	private void addComponent(int x, int y, JComponent comp) {
-		constraints.gridx = x;
-		constraints.gridy = y;
-		add(comp, constraints);
-	}
-
-	private final void fillPanel() {
-		addComponent(0, 0, titleLabel);
-		addComponent(0, 1, run);
-		addComponent(0, 2, stop);
-		addComponent(0, 3, pause);
-		addComponent(0, 4, directory);
-	}
-
-	private final void setUpListeners() {
-		run.addActionListener(this);
-		pause.addActionListener(this);
-		stop.addActionListener(this);
-		directory.addActionListener(this);
-	}
-
-	public RunPanel getInstance() {
-		return instance == null ? instance = new RunPanel() : instance;
-	}
-
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
+	public void actionPerformed(final ActionEvent e) {
+		final String command = e.getActionCommand();
 		switch (command.toLowerCase()) {
 			case "run script":
 				new ScriptSelectorUI();
@@ -92,6 +65,31 @@ public class RunPanel extends JPanel implements ActionListener {
 				break;
 		}
 
+	}
+
+	private void addComponent(final int x, final int y, final JComponent comp) {
+		constraints.gridx = x;
+		constraints.gridy = y;
+		add(comp, constraints);
+	}
+
+	private final void fillPanel() {
+		addComponent(0, 0, titleLabel);
+		addComponent(0, 1, run);
+		addComponent(0, 2, stop);
+		addComponent(0, 3, pause);
+		addComponent(0, 4, directory);
+	}
+
+	public RunPanel getInstance() {
+		return instance == null ? instance = new RunPanel() : instance;
+	}
+
+	private final void setUpListeners() {
+		run.addActionListener(this);
+		pause.addActionListener(this);
+		stop.addActionListener(this);
+		directory.addActionListener(this);
 	}
 
 }

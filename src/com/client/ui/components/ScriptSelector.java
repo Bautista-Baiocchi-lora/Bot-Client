@@ -10,8 +10,8 @@ import javax.swing.JTree;
 
 public class ScriptSelector extends JPanel {
 	private GridBagConstraints constraints;
-	private JButton start;
-	private JTree tree;
+	private final JButton start;
+	private final JTree tree;
 
 	public ScriptSelector() {
 		setLayout(new BorderLayout());

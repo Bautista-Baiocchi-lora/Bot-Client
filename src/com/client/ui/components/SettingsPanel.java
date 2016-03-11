@@ -2,7 +2,6 @@ package com.client.ui.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,25 +19,18 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
-import com.client.api.method.Game;
 import com.client.api.method.Menu;
-import com.client.core.Client;
-import com.client.core.Engine;
 import com.client.data.Constants;
-import com.client.test.Int;
-import com.client.test.ReflectionShit;
-import com.client.ui.BotUI;
-import com.client.ui.ScriptSelectorUI;
 
-public class SettingsPanel extends JPanel implements ActionListener, ItemListener{
+public class SettingsPanel extends JPanel implements ActionListener, ItemListener {
 	private SettingsPanel instance;
-	private final JLabel colorLabel, titleLabel, dialogLabel, loggerLabel;
+	private final JLabel colorLabel, titleLabel, loggerLabel;
 	private final JComboBox colorComboBox;
-	private final JButton save, clearCache, network, randoms, reflectionExplorer;
-	private final JToggleButton logger, dialog;
+	private final JButton save;
+	private final JToggleButton logger;
 	private final GridBagConstraints constraints;
 	private Thread getAction;
-	Client client = Engine.client; //For testing loader
+
 	public SettingsPanel() {
 		instance = this;
 
@@ -53,44 +45,41 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 		titleLabel = new JLabel("Settings", SwingConstants.CENTER);
 		colorLabel = new JLabel("Client Color:");
 		colorComboBox = new JComboBox(Constants.CLIENT_COLOR_OPTIONS);
-		clearCache = new JButton("Clear Cache");
-		network = new JButton("Network");
-		randoms = new JButton("Randoms");
 		loggerLabel = new JLabel("Logger:");
 		logger = new JToggleButton("On");
-		reflectionExplorer = new JButton("<html><center>Reflection Explorer");
-		dialogLabel = new JLabel("Dialog");
-		dialog = new JToggleButton("On");
 		save = new JButton("Save");
 		setUpListeners();
 		fillPanel();
 	}
 
-	private void addComponent(int x, int y, JComponent comp) {
+	@Override
+	public void actionPerformed(final ActionEvent e) {
+		final String command = e.getActionCommand();
+		switch (command.toLowerCase()) {
+			case "randoms":
+
+				Menu.sendAction(315, 554, 2, 1167);
+				break;
+
+		}
+
+	}
+
+	private void addComponent(final int x, final int y, final JComponent comp) {
 		constraints.gridx = x;
 		constraints.gridy = y;
 		comp.setPreferredSize(new Dimension(60, 14));
 		add(comp, constraints);
 	}
-	private final void setUpListeners() {
-		randoms.addActionListener(this);
-		colorComboBox.addItemListener(this);;
 
-	}
 	private final void fillPanel() {
-		addComponent(0, 7, dialogLabel);
-		addComponent(1, 7, dialog);
 		addComponent(0, 1, colorLabel);
 		addComponent(1, 1, colorComboBox);
-		addComponent(0, 5, loggerLabel);
-		addComponent(1, 5, logger);
+		addComponent(0, 2, loggerLabel);
+		addComponent(1, 2, logger);
 		constraints.gridwidth = 2;
 		addComponent(0, 0, titleLabel);
-		addComponent(0, 2, clearCache);
-		addComponent(0, 3, network);
-		addComponent(0, 4, randoms);
-		addComponent(0, 6, reflectionExplorer);
-		addComponent(0, 8, save);
+		addComponent(0, 3, save);
 	}
 
 	public SettingsPanel getInstance() {
@@ -98,31 +87,23 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
-		switch (command.toLowerCase()) {
-			case "randoms":
-
-				Menu.sendAction(315, 554, 2, 1167);
-				break;
-
-	
-	}
-		
-	}
-
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		if(e.getStateChange() == 1) {
-			String command = e.getItem().toString();
+	public void itemStateChanged(final ItemEvent e) {
+		if (e.getStateChange() == 1) {
+			final String command = e.getItem().toString();
 			switch (command.toLowerCase()) {
 				case "black":
-				// GROUND WORK FOR COLOR CHANGE//
-				System.out.println("Setting color - black");
-				break;
-					
+					// GROUND WORK FOR COLOR CHANGE//
+					System.out.println("Setting color - black");
+					break;
+
+			}
 		}
 	}
-}
+
+	private final void setUpListeners() {
+		colorComboBox.addItemListener(this);
+		;
+
+	}
 
 }

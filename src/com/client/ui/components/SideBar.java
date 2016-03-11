@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -20,7 +19,7 @@ import com.client.data.Variables;
 
 public class SideBar extends JPanel implements ActionListener {
 	private Engine engine;
-	private SideBar sideBar;
+	private final SideBar sideBar;
 	private final JButton hide, settings, run, debug, about;
 	private JPanel currentPanel;
 
@@ -50,68 +49,9 @@ public class SideBar extends JPanel implements ActionListener {
 		setPreferredSize(new Dimension(50, 100));
 	}
 
-	public SideBar getInstance() {
-		return sideBar != null ? sideBar : new SideBar();
-	}
-
-	private final void setUpListeners() {
-		hide.addActionListener(this);
-		run.addActionListener(this);
-		debug.addActionListener(this);
-		settings.addActionListener(this);
-		about.addActionListener(this);
-	}
-
-	private final void setImages() {
-		settings.setIcon(getImageIcon("com/client/ui/images/settings.png"));
-		settings.setBorder(BorderFactory.createEmptyBorder());
-		settings.setContentAreaFilled(false);
-		debug.setIcon(getImageIcon("com/client/ui/images/debug.png"));
-		debug.setBorder(BorderFactory.createEmptyBorder());
-		debug.setContentAreaFilled(false);
-		run.setIcon(getImageIcon("com/client/ui/images/run.png"));
-		run.setBorder(BorderFactory.createEmptyBorder());
-		run.setContentAreaFilled(false);
-		about.setIcon(getImageIcon("com/client/ui/images/about.png"));
-		about.setBorder(BorderFactory.createEmptyBorder());
-		about.setContentAreaFilled(false);
-		hide.setIcon(getImageIcon("com/client/ui/images/hide.png"));
-		hide.setBorder(BorderFactory.createEmptyBorder());
-		hide.setContentAreaFilled(false);
-	}
-
-	private final void fillPanel() {
-		add(hide);
-		hide.setVisible(false);
-		add(run);
-		add(debug);
-		add(settings);
-		add(about);
-	}
-
-	private ImageIcon getImageIcon(String path) {
-		URL resource = getClass().getClassLoader()
-				.getResource(path);
-		if (resource != null) {
-			return new ImageIcon(resource);
-		}
-		return null;
-	}
-
-	private final void switchPanel(JPanel panel) {
-		JFrame frame = Variables.getEngine().getBotFrame();
-		if (currentPanel != null) {
-			if (!currentPanel.equals(panel)) {
-				frame.remove(currentPanel);
-			}
-		}
-		currentPanel = panel;
-		frame.add(panel, BorderLayout.CENTER);
-	}
-
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		String command = e.getActionCommand();
+	public void actionPerformed(final ActionEvent e) {
+		final String command = e.getActionCommand();
 		switch (command) {
 			case "settings":
 				switchPanel(new SettingsPanel());
@@ -141,5 +81,64 @@ public class SideBar extends JPanel implements ActionListener {
 		Variables.getEngine().getBotFrame().revalidate();
 		Variables.getEngine().getBotFrame().pack();
 		Variables.getEngine().getBotFrame().repaint();
+	}
+
+	private final void fillPanel() {
+		add(hide);
+		hide.setVisible(false);
+		add(run);
+		add(debug);
+		add(settings);
+		add(about);
+	}
+
+	private ImageIcon getImageIcon(final String path) {
+		final URL resource = getClass().getClassLoader()
+				.getResource(path);
+		if (resource != null) {
+			return new ImageIcon(resource);
+		}
+		return null;
+	}
+
+	public SideBar getInstance() {
+		return sideBar != null ? sideBar : new SideBar();
+	}
+
+	private final void setImages() {
+		settings.setIcon(getImageIcon("com/client/ui/images/settings.png"));
+		settings.setBorder(BorderFactory.createEmptyBorder());
+		settings.setContentAreaFilled(false);
+		debug.setIcon(getImageIcon("com/client/ui/images/debug.png"));
+		debug.setBorder(BorderFactory.createEmptyBorder());
+		debug.setContentAreaFilled(false);
+		run.setIcon(getImageIcon("com/client/ui/images/run.png"));
+		run.setBorder(BorderFactory.createEmptyBorder());
+		run.setContentAreaFilled(false);
+		about.setIcon(getImageIcon("com/client/ui/images/about.png"));
+		about.setBorder(BorderFactory.createEmptyBorder());
+		about.setContentAreaFilled(false);
+		hide.setIcon(getImageIcon("com/client/ui/images/hide.png"));
+		hide.setBorder(BorderFactory.createEmptyBorder());
+		hide.setContentAreaFilled(false);
+	}
+
+	private final void setUpListeners() {
+		hide.addActionListener(this);
+		run.addActionListener(this);
+		debug.addActionListener(this);
+		settings.addActionListener(this);
+		about.addActionListener(this);
+	}
+
+	private final void switchPanel(final JPanel panel) {
+		final JFrame frame = Variables.getEngine().getBotFrame();
+		if (currentPanel != null) {
+			if (!currentPanel.equals(panel)) {
+				frame.remove(currentPanel);
+			}
+		}
+		currentPanel = panel;
+		frame.add(panel, BorderLayout.CENTER);
 	}
 }
