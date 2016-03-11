@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 
@@ -24,7 +23,6 @@ public class BotUI extends JFrame {
 	private BotUI instance;
 	private final SideBar sideBar;
 	private final GamePanel gamePanel;
-	private final Logger logger;
 
 	public BotUI() {
 		if (instance != null) {
@@ -43,7 +41,7 @@ public class BotUI extends JFrame {
 		getContentPane().setBackground(Variables.getClientColor());
 		sideBar = new SideBar();
 		gamePanel = new GamePanel();
-		logger = new Logger();
+		new Logger(gamePanel.logArea);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		fillFrame();
@@ -54,7 +52,7 @@ public class BotUI extends JFrame {
 	private final void fillFrame() {
 		add(sideBar, BorderLayout.EAST);
 		add(gamePanel, BorderLayout.WEST);
-		add(logger, BorderLayout.PAGE_END);
+		
 	}
 	 private void openNewTab() {
 		 
@@ -63,6 +61,7 @@ public class BotUI extends JFrame {
 	        if (applet != null) {
 	          
 	            gamePanel.add(applet, "Center");
+	           
 	            if (Engine.client.getClient() == null) {
 	            	Engine.client.setClientInstance(applet);
 	            }

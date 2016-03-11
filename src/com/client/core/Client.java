@@ -94,11 +94,19 @@ public class Client {
 	}
 
 	public void initiate() {
+	File f = new File(
+			getPublicCache() + "Client" + File.separator + Constants.jarName);
 		if (isInitialized) {
 			return;
 		}
 		try {
-			downloadJar();
+			if(f.exists() && !f.isDirectory()) {
+			//WE CAN CHECK FOR CLIENT UPDATE HERE ALSO
+			System.out.println("Loading client from cache.");
+			
+			} else {
+			downloadJar();	
+			}
 			isInitialized = true;
 		} catch (final Exception ignore) {
 			ignore.printStackTrace();

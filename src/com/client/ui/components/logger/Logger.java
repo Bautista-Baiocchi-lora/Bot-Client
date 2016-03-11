@@ -2,30 +2,28 @@ package com.client.ui.components.logger;
 
 import javax.swing.JTextArea;
 
-public class Logger extends JTextArea {
-	private static Logger instance;
-
+public class Logger  {
+	public static JTextArea logArea;
+	
 	public static void write(final String str) {
-		instance.append("[Bot] \t" + str + "\n");
-		instance.setCaretPosition(instance.getDocument().getLength());
+		logArea.append("[Bot] \t" + str + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
 	public static void writeException(final String str) {
-		instance.append("[Bot][EXCEPTION] \t" + str + "\n");
-		instance.setCaretPosition(instance.getDocument().getLength());
+		logArea.append("[Bot][EXCEPTION] \t" + str + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
 	public static void writeWarning(final String str) {
-		instance.append("[Bot][WARNING] \t" + str + "\n");
-		instance.setCaretPosition(instance.getDocument().getLength());
+		logArea.append("[Bot][WARNING] \t" + str + "\n");
+		logArea.setCaretPosition(logArea.getDocument().getLength());
 	}
 
-	public Logger() {
-		instance = this;
+	public Logger(JTextArea logArea) {
+		Logger.logArea = logArea;
 	}
 
-	public Logger getInstance() {
-		return instance == null ? instance = new Logger() : instance;
-	}
+
 
 }

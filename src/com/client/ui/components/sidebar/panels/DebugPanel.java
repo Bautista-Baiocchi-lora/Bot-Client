@@ -13,14 +13,26 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import com.client.api.method.Game;
+import com.client.api.method.Npcs;
+import com.client.api.method.Players;
+import com.client.api.wrappers.Npc;
+import com.client.api.wrappers.Player;
+import com.client.core.Client;
+import com.client.core.Engine;
+import com.client.data.Constants;
+import com.client.test.Int;
 import com.client.ui.components.logger.Logger;
 
 public class DebugPanel extends JPanel implements ActionListener {
 	private DebugPanel instance;
+	private Thread actionThread;
 	private final GridBagConstraints constraints;
 	private final JButton interfaces, npcs, objects, groundItems, players, location, bank,
 			inventory, actions, test;
-
+	private Client client = Engine.client;
+	boolean debugActions = false;
+	int i = 0;
 	public DebugPanel() {
 		instance = this;
 
@@ -90,15 +102,25 @@ public class DebugPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 		switch (command) {
 			case "Interface":
-
+				Logger.write("Parent Interface: "+Game.getOpenInterfaceID());
 				break;
 			case "Npcs":
+				for(Npc n : Npcs.getNpcs()) {
+					if(n != null) {
+						Logger.write("Name: "+n.getDef().getName() + " - "+n.getDef().getId() + " || Location: "+n.getLocation());
+					}
+				}
 				break;
 			case "Objects":
 				break;
 			case "Ground Items":
 				break;
 			case "Players":
+				for(Player p : Players.getPlayers()) {
+					if(p != null) {
+						Logger.write("Name: "+p.getName()+" || Location: "+p.getLocation());
+					}
+				}
 				break;
 			case "Location":
 				break;
@@ -109,6 +131,56 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Actions":
 				break;
 			case "Test":
+				if(debugActions) {
+			if (actionThread == null) {
+				actionThread = new Thread() {
+					public void run() {
+						while (!actionThread.isInterrupted()) {
+							// 27983909
+							Logger.write("Action Listener Started!");
+							while (!actionThread.isInterrupted()) {
+								int id = Int.getInstance().getFromIntArray(Constants.mainClass, Constants.menuActionID,
+										client.getClient(), 1);
+								int cmd1 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd1, client.getClient(), 1);
+								int cmd2 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd2, client.getClient(), 1);
+								int cmd3 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd3, client.getClient(), 1);
+								int cmd4 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd4, client.getClient(), 1);
+
+								Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: " + cmd3 + " cmd4 :" + cmd4
+										+ " id: " + id);
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}
+					}
+				};
+
+				actionThread.start();
+			} else {
+				actionThread.interrupt();
+				actionThread = null;
+				Logger.write("Stopped the shit");
+			}
+				} else {
+					
+					final Npc[] n1 = Npcs.getNearest("Man");
+					Npc n = null;
+					if (n1.length > 0)
+						n = n1[0];
+					if(n != null) {
+						Logger.write("Found: "+n.getDef().getName());
+						n.interact(i);
+						i++;
+					}
+				}
 				break;
 			default:
 				Logger.writeWarning("Error in debug panel action listener.");

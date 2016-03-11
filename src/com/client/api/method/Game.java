@@ -16,15 +16,14 @@ public class Game {
 	public static void doAction(final int i) {
 		try {
 			final ClassLoader cl = client.classLoader;
-			final Class<?> c = cl.loadClass(Constants.mainClass);
+			final Class<?> c = cl.loadClass(main);
 			for (final Method m : c.getDeclaredMethods()) {
 				if (m != null) {
 					if (m.getName().equals(Constants.doAction)) {
-						// if(m.getParameterCount() == 1) {
-						// System.out.println("TEST");
+						 if(m.getParameterCount() == 1) {
 						m.setAccessible(true);
 						m.invoke(clientObj, i);
-						// }
+						 }
 					}
 				}
 			}
@@ -33,33 +32,43 @@ public class Game {
 		}
 
 	}
-
+	public static int getLoopCycle() {
+	return Int.getInstance().getInt(main, Constants.loopCycle, clientObj);
+	}
 	public static int getOpenInterfaceID() {
 		return Int.getInstance().getInt(main, Constants.openInterfaceID, clientObj);
 	}
 
 	public static void setMenuAction1(final int value, final int index) {
-		Int.getInstance().setIntArray(Constants.mainClass, Constants.menuActionCmd1, clientObj,
+		Int.getInstance().setIntArray(main, Constants.menuActionCmd1, clientObj,
 				index, value);
 	}
-
+	public static int getBaseX() {
+		return Int.getInstance().getInt(main, Constants.baseX, clientObj);
+	}
+	public static int getBaseY() {
+		return Int.getInstance().getInt(main, Constants.baseY, clientObj);
+	}
+	public static int getPlane() {
+		return Int.getInstance().getInt(main, Constants.plane, clientObj);
+	}
 	public static void setMenuAction2(final int value, final int index) {
-		Int.getInstance().setIntArray(Constants.mainClass, Constants.menuActionCmd2, clientObj,
+		Int.getInstance().setIntArray(main, Constants.menuActionCmd2, clientObj,
 				index, value);
 	}
 
 	public static void setMenuAction3(final int value, final int index) {
-		Int.getInstance().setIntArray(Constants.mainClass, Constants.menuActionCmd3, clientObj,
+		Int.getInstance().setIntArray(main, Constants.menuActionCmd3, clientObj,
 				index, value);
 	}
 
 	public static void setMenuAction4(final int value, final int index) {
-		Int.getInstance().setIntArray(Constants.mainClass, Constants.menuActionCmd4, clientObj,
+		Int.getInstance().setIntArray(main, Constants.menuActionCmd4, clientObj,
 				index, value);
 	}
 
 	public static void setMenuActionId(final int value, final int index) {
-		Int.getInstance().setIntArray(Constants.mainClass, Constants.menuActionID, clientObj, index,
+		Int.getInstance().setIntArray(main, Constants.menuActionID, clientObj, index,
 				value);
 	}
 }
