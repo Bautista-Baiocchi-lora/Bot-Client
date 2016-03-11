@@ -3,6 +3,7 @@ package com.client.ui.components.logger;
 import java.awt.Font;
 
 import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
 
 public class Logger extends JTextArea {
 	private static JTextArea logArea;
@@ -13,6 +14,8 @@ public class Logger extends JTextArea {
 		setEditable(false);
 		setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		setLineWrap(true);
+		DefaultCaret caret = (DefaultCaret) this.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 	}
 
 	public static void write(final String str) {

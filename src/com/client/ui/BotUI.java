@@ -48,9 +48,6 @@ public class BotUI extends JFrame {
 		fillFrame();
 		pack();
 		addApplet();
-		for(int i =0; i <50;i++){
-		Logger.write("here", LogType.CLINET);
-		}
 	}
 
 	private final void fillFrame() {

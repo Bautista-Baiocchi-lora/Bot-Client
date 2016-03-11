@@ -2,19 +2,13 @@ package com.client.ui.components;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import com.client.ui.components.logger.Logger;
 import com.client.ui.components.logger.LoggerPane;
 
 public class GamePanel extends JPanel {
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	private GamePanel instance;
 	private LoggerPane pane;
