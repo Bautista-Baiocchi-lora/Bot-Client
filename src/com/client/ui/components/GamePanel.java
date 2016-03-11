@@ -20,7 +20,7 @@ public class GamePanel extends JPanel {
 	public GamePanel() {
 		instance = this;
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(765, 650));
+		setPreferredSize(new Dimension(765, 645));
 		
 		logArea = new JTextArea(8, 5);
 		scroll = new JScrollPane(logArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
