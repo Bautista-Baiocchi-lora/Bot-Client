@@ -2,8 +2,9 @@ package com.client.ui.components.sidebar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -11,6 +12,7 @@ import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,33 +26,35 @@ import com.client.ui.components.sidebar.panels.SettingsPanel;
 public class SideBar extends JPanel implements ActionListener {
 	private Engine engine;
 	private final SideBar sideBar;
+	private final GridBagConstraints constraints;
 	private final JButton hide, settings, run, debug, about;
 	private JPanel currentPanel;
 
 	public SideBar() {
 		sideBar = this;
 
+		constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.ipady = 15;
+		constraints.ipadx = 10;
+		constraints.insets = new Insets(35, 0, 0, 0);
+
 		hide = new JButton();
 		hide.setActionCommand("hide");
-
 		settings = new JButton();
 		settings.setActionCommand("settings");
-
 		run = new JButton();
 		run.setActionCommand("run");
-
 		about = new JButton();
 		about.setActionCommand("about");
-
 		debug = new JButton();
 		debug.setActionCommand("debug");
 
-		setLayout(new GridLayout(0, 1));
+		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		setUpListeners();
 		setImages();
 		fillPanel();
-		setPreferredSize(new Dimension(50, 100));
 	}
 
 	@Override
@@ -82,18 +86,22 @@ public class SideBar extends JPanel implements ActionListener {
 				System.out.println("Invalid input");
 				break;
 		}
-		Variables.getEngine().getBotFrame().revalidate();
 		Variables.getEngine().getBotFrame().pack();
-		Variables.getEngine().getBotFrame().repaint();
+	}
+
+	private void addComponent(final int x, final int y, final JComponent comp) {
+		constraints.gridx = x;
+		constraints.gridy = y;
+		add(comp, constraints);
 	}
 
 	private final void fillPanel() {
-		add(hide);
+		addComponent(0, 0, hide);
 		hide.setVisible(false);
-		add(run);
-		add(debug);
-		add(settings);
-		add(about);
+		addComponent(0, 1, run);
+		addComponent(0, 2, debug);
+		addComponent(0, 3, settings);
+		addComponent(0, 4, about);
 	}
 
 	private ImageIcon getImageIcon(final String path) {

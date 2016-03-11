@@ -24,6 +24,7 @@ public class BotUI extends JFrame {
 	private BotUI instance;
 	private final SideBar sideBar;
 	private final GamePanel gamePanel;
+	private final LoggerPanel loggerPanel;
 
 	public BotUI() {
 		if (instance != null) {
@@ -41,12 +42,15 @@ public class BotUI extends JFrame {
 		setLayout(new BorderLayout());
 		getContentPane().setBackground(Variables.getClientColor());
 		sideBar = new SideBar();
-		gamePanel = new GamePanel(new LoggerPanel(new Logger()));
+		gamePanel = new GamePanel();
+		loggerPanel = new LoggerPanel(new Logger());
 		setResizable(false);
 		setLocationRelativeTo(null);
 		fillFrame();
 		pack();
 		addApplet();
+		System.out.println(gamePanel.getSize().getWidth());
+		System.out.println(gamePanel.getSize().getHeight());
 	}
 
 	private void addApplet() {
@@ -64,9 +68,9 @@ public class BotUI extends JFrame {
 	}
 
 	private final void fillFrame() {
-		add(sideBar, BorderLayout.EAST);
-		add(gamePanel, BorderLayout.WEST);
-
+		add(loggerPanel, BorderLayout.PAGE_END);
+		add(sideBar, BorderLayout.LINE_END);
+		add(gamePanel, BorderLayout.LINE_START);
 	}
 
 	public BotUI getInstance() {
