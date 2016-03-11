@@ -11,7 +11,12 @@ public class Logger extends JTextArea {
 	}
 
 	public static void writeException(final String str) {
-		instance.append("[Bot][Exception] \t" + str + "\n");
+		instance.append("[Bot][EXCEPTION] \t" + str + "\n");
+		instance.setCaretPosition(instance.getDocument().getLength());
+	}
+
+	public static void writeWarning(final String str) {
+		instance.append("[Bot][WARNING] \t" + str + "\n");
 		instance.setCaretPosition(instance.getDocument().getLength());
 	}
 

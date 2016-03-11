@@ -1,4 +1,4 @@
-package com.client.ui.components;
+package com.client.ui.components.sidebar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,6 +16,10 @@ import javax.swing.JPanel;
 
 import com.client.core.Engine;
 import com.client.data.Variables;
+import com.client.ui.components.sidebar.panels.AboutPanel;
+import com.client.ui.components.sidebar.panels.DebugPanel;
+import com.client.ui.components.sidebar.panels.RunPanel;
+import com.client.ui.components.sidebar.panels.SettingsPanel;
 
 public class SideBar extends JPanel implements ActionListener {
 	private Engine engine;

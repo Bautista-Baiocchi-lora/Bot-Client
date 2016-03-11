@@ -10,8 +10,8 @@ import javax.swing.UIManager;
 
 import com.client.data.Variables;
 import com.client.ui.components.GamePanel;
-import com.client.ui.components.SideBar;
 import com.client.ui.components.logger.Logger;
+import com.client.ui.components.sidebar.SideBar;
 
 public class BotUI extends JFrame {
 	/**

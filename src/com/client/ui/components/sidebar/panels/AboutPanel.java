@@ -1,4 +1,4 @@
-package com.client.ui.components;
+package com.client.ui.components.sidebar.panels;
 
 import java.awt.Color;
 import java.awt.GridLayout;
