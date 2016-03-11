@@ -61,9 +61,8 @@ public class BotUI extends JFrame {
 	        Applet applet = Engine.client.getApplet();
 
 	        if (applet != null) {
-	            JPanel panel = new JPanel(new BorderLayout());
-	            panel.add(applet, "Center");
-	            gamePanel.add(panel);
+	          
+	            gamePanel.add(applet, "Center");
 	            if (Engine.client.getClient() == null) {
 	            	Engine.client.setClientInstance(applet);
 	            }
