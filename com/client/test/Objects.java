@@ -18,28 +18,6 @@ public class Objects {
 		return instance;
 	}
 
-	public static Object getItem(final int i) {
-		try {
-			final Client client = Variables.getEngine().getClient();
-			final ClassLoader cl = client.classLoader;
-			final Class<?> c = cl.loadClass(""); // Constants.getItemDef
-			for (final Method m : c.getDeclaredMethods()) {
-				if (m != null) {
-					if (m.getName().equals("")) { // Constants.getForID
-						m.setAccessible(true);
-						m.invoke(client.getClient(), i);
-
-					}
-				}
-			}
-
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-		return i;
-
-	}
-
 	private final Client client = Variables.getEngine().getClient();
 
 	public Objects() {
@@ -161,24 +139,7 @@ public class Objects {
 		return null;
 	}
 
-	public Object getScene(final String clazz, final String field, final Object obj,
-			final String clazz2) {
-		try {
-			final ClassLoader cl = client.classLoader;
-			final Class<?> c = cl.loadClass(clazz);
-			for (final Field f : c.getDeclaredFields()) {
-				f.setAccessible(true);
-				if (f.getName().equals(field)) {
-					if (f.getType().toString().equals("class " + clazz2)) {
-						return f.get(obj);
-					}
-				}
-			}
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 
 	public void walkTo(final String clazz, final String field, final Object obj,
 			final int clickType, final int sizeX, final int sizeY,

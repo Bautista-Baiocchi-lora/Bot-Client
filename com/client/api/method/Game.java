@@ -1,6 +1,7 @@
 package com.client.api.method;
 
 import java.lang.reflect.Method;
+
 import com.client.core.Client;
 import com.client.data.Constants;
 import com.client.data.Variables;
@@ -80,4 +81,7 @@ public class Game {
     public static Object[][][] getGroundItems() {
         return (Object[][][]) Objects.getInstance().get3DObjectArray(Constants.mainClass, Constants.groundArray, client.getClient(), Constants.dequeClass);
     }
+	public static Object getScene() {
+	return Objects.getInstance().getObject(Constants.mainClass, Constants.worldController, client.getClient(), Constants.worldControllerClass);
+}
 }

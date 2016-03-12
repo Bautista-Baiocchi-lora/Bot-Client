@@ -18,8 +18,9 @@ public class Constants {
 	public static String dequeClass = "af";
 	public static String nodeClass = "ad";
 	public static String groundClass = "O";
+	public static String interactiveObjectsClass = "am";
+	public static String worldControllerClass = "bb";
 
-	
 	
 	
 	// CLIENT FIELDS//
@@ -38,6 +39,8 @@ public class Constants {
 	public static String myPlayer = "L";
 	public static String loopCycle = "Q";
 	public static String groundArray = "bD";
+	public static String worldController = "dj";
+	
 	
 	// CHARACTER FIELDS//
 	public static String animation = "D";
@@ -76,7 +79,13 @@ public class Constants {
 
 	
 	//GROUND FIELDS//
+	public static String interactiveObjects = "l";
 	
-	
+	//INTERACTIVE OBJECTS FIELDS//
+	public static String getHash = "m";
+
+	//WORLD CONTROLLER FIELDS//
+	public static String worldGroundArray = "i";
+
 	
 }

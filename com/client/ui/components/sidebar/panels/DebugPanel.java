@@ -19,10 +19,12 @@ import com.client.api.method.GroundItems;
 import com.client.api.method.Inventory;
 import com.client.api.method.Npcs;
 import com.client.api.method.Players;
+import com.client.api.method.SceneObjects;
 import com.client.api.wrappers.GroundItem;
 import com.client.api.wrappers.Item;
 import com.client.api.wrappers.Npc;
 import com.client.api.wrappers.Player;
+import com.client.api.wrappers.SceneObject;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
@@ -34,8 +36,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 	private DebugPanel instance;
 	private Thread actionThread;
 	private final GridBagConstraints constraints;
-	private final JButton interfaces, npcs, objects, groundItems, players, location, bank,
-			inventory, actions, test;
+	private final JButton interfaces, npcs, objects, groundItems, players, location, bank, inventory, actions, test;
 	private final JLabel titleLabel;
 	private final Client client = Engine.client;
 
@@ -70,107 +71,111 @@ public class DebugPanel extends JPanel implements ActionListener {
 	public void actionPerformed(final ActionEvent e) {
 		final String command = e.getActionCommand();
 		switch (command) {
-			case "Interface":
-				Logger.write("Parent Interface: " + Game.getOpenInterfaceID(), LogType.DEBUG);
-				break;
-			case "Npcs":
-				for (final Npc n : Npcs.getNpcs()) {
-					if (n != null) {
-						Logger.write("Npc Name: " + n.getDef().getName() + " || ID: " + n.getDef().getId()
-								+ " || " + n.getLocation() + " || Disctance: "
-								+ n.distanceTo(), LogType.DEBUG);
+		case "Interface":
+			Logger.write("Parent Interface: " + Game.getOpenInterfaceID(), LogType.DEBUG);
+			break;
+		case "Npcs":
+			for (final Npc n : Npcs.getNpcs()) {
+				if (n != null) {
+					Logger.write("Npc Name: " + n.getDef().getName() + " || ID: " + n.getDef().getId() + " || "
+							+ n.getLocation() + " || Disctance: " + n.distanceTo(), LogType.DEBUG);
+				}
+			}
+			break;
+		case "Objects":
+			Logger.write("Objects with a distance less than 15 tiles.", LogType.DEBUG);
+			for (final SceneObject s : SceneObjects.getSceneObjects()) {
+				if (s != null) {
+					if (s.distanceTo() < 15) {
+						Logger.write("Object ID: " + s.getId() + " || " + s.getLocation() + " || Distance: "
+								+ s.distanceTo(), LogType.DEBUG);
 					}
 				}
-				break;
-			case "Objects":
-				break;
-			case "Ground Items":
-				for(GroundItem g : GroundItems.getGroundItems()) {
-					if(g != null) {
-						Logger.write("GroundItem ID: "+g.getId()+" || "+g.getLocation()+ " || "+g.distanceTo());
-					}
+			}
+			break;
+		case "Ground Items":
+			for (final GroundItem g : GroundItems.getGroundItems()) {
+				if (g != null) {
+					Logger.write("GroundItem ID: " + g.getId() + " || " + g.getLocation() + " || " + g.distanceTo());
 				}
-				break;
-			case "Players":
-				for (final Player p : Players.getPlayers()) {
-					if (p != null) {
-						Logger.write("Player Name: " + p.getName() + " || "+ p.getLocation()
-								+ " || Distance: " + p.distanceTo(), LogType.DEBUG);
-					}
+			}
+			break;
+		case "Players":
+			for (final Player p : Players.getPlayers()) {
+				if (p != null) {
+					Logger.write("Player Name: " + p.getName() + " || " + p.getLocation() + " || Distance: "
+							+ p.distanceTo(), LogType.DEBUG);
 				}
-				break;
-			case "Location":
-				Logger.write(""+Players.myPlayer().getLocation(), LogType.DEBUG);
-				break;
-			case "Bank":
-				break;
-			case "Inventory":
-				Logger.write("Inventory Count: "+ Inventory.getCount(), LogType.DEBUG);
-				for(Item i : Inventory.getItems()) {
-					if(i != null) {
-						Logger.write("Item: "+i.getId() + " || Count: "+ i.getStackSize() + " || Slot: "+i.getSlot(), LogType.DEBUG);
-					}
+			}
+			break;
+		case "Location":
+			Logger.write("" + Players.myPlayer().getLocation(), LogType.DEBUG);
+			break;
+		case "Bank":
+			break;
+		case "Inventory":
+			Logger.write("Inventory Count: " + Inventory.getCount(), LogType.DEBUG);
+			for (final Item i : Inventory.getItems()) {
+				if (i != null) {
+					Logger.write("Item: " + i.getId() + " || Count: " + i.getStackSize() + " || Slot: " + i.getSlot(),
+							LogType.DEBUG);
 				}
-				break;
-			case "Actions":
-				if (actionThread == null) {
-					actionThread = new Thread() {
-						@Override
-						public void run() {
+			}
+			break;
+		case "Actions":
+			if (actionThread == null) {
+				actionThread = new Thread() {
+					@Override
+					public void run() {
+						while (!actionThread.isInterrupted()) {
+							Logger.write("Action Listener Started!", LogType.CLIENT);
 							while (!actionThread.isInterrupted()) {
-								Logger.write("Action Listener Started!", LogType.CLIENT);
-								while (!actionThread.isInterrupted()) {
-									final int id = Int.getInstance().getFromIntArray(
-											Constants.mainClass,
-											Constants.menuActionID,
-											client.getClient(), 1);
-									final int cmd1 = Int.getInstance().getFromIntArray(
-											Constants.mainClass,
-											Constants.menuActionCmd1, client.getClient(), 1);
-									final int cmd2 = Int.getInstance().getFromIntArray(
-											Constants.mainClass,
-											Constants.menuActionCmd2, client.getClient(), 1);
-									final int cmd3 = Int.getInstance().getFromIntArray(
-											Constants.mainClass,
-											Constants.menuActionCmd3, client.getClient(), 1);
-									final int cmd4 = Int.getInstance().getFromIntArray(
-											Constants.mainClass,
-											Constants.menuActionCmd4, client.getClient(), 1);
+								final int id = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionID, client.getClient(), 1);
+								final int cmd1 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd1, client.getClient(), 1);
+								final int cmd2 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd2, client.getClient(), 1);
+								final int cmd3 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd3, client.getClient(), 1);
+								final int cmd4 = Int.getInstance().getFromIntArray(Constants.mainClass,
+										Constants.menuActionCmd4, client.getClient(), 1);
 
-									Logger.write("ID: "+id+ " || Action #1: "+cmd1+ " || Action #2: "+cmd2+" || Action #3: "+cmd3+" || Action #4:"+cmd4, LogType.DEBUG);
-									try {
-										Thread.sleep(500);
-									} catch (final InterruptedException e) {
-										e.printStackTrace();
-									}
+								Logger.write("ID: " + id + " || Action #1: " + cmd1 + " || Action #2: " + cmd2
+										+ " || Action #3: " + cmd3 + " || Action #4:" + cmd4, LogType.DEBUG);
+								try {
+									Thread.sleep(500);
+								} catch (final InterruptedException e) {
+									e.printStackTrace();
 								}
 							}
 						}
-					};
+					}
+				};
 
-					actionThread.start();
-				} else {
-					actionThread.interrupt();
-					actionThread = null;
-					Logger.write("Action Listener Stopped.", LogType.CLIENT);
-				}
-				break;
-			case "Test":
+				actionThread.start();
+			} else {
+				actionThread.interrupt();
+				actionThread = null;
+				Logger.write("Action Listener Stopped.", LogType.CLIENT);
+			}
+			break;
+		case "Test":
 
-				final Npc[] n1 = Npcs.getNearest("Man");
-				Npc n = null;
-				if (n1.length > 0) {
-					n = n1[0];
-				}
-				if (n != null) {
-					Logger.write("Found: " + n.getDef().getName());
-					n.interact(1);
-				}
+			final Npc[] n1 = Npcs.getNearest("Man");
+			Npc n = null;
+			if (n1.length > 0) {
+				n = n1[0];
+			}
+			if (n != null) {
+				Logger.write("Found: " + n.getDef().getName());
+				n.interact(1);
+			}
 
-				break;
-			default:
-				Logger.writeWarning("Error in debug panel action listener.");
-				break;
+			break;
+		default:
+			Logger.writeWarning("Error in debug panel action listener.");
+			break;
 		}
 	}
 
