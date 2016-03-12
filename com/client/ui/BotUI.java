@@ -31,7 +31,7 @@ public class BotUI extends JFrame {
 			throw new IllegalStateException("Frame already created.");
 		}
 		instance = this;
-		setTitle("El Maestro & Ethan's Botting Client");
+		setTitle("El Maestro & Ethan's Reflection Client");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

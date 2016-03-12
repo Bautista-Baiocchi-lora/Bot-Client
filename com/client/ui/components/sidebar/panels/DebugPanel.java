@@ -69,14 +69,14 @@ public class DebugPanel extends JPanel implements ActionListener {
 		final String command = e.getActionCommand();
 		switch (command) {
 			case "Interface":
-				Logger.write("Parent Interface: " + Game.getOpenInterfaceID());
+				Logger.write("Parent Interface: " + Game.getOpenInterfaceID(), LogType.DEBUG);
 				break;
 			case "Npcs":
 				for (final Npc n : Npcs.getNpcs()) {
 					if (n != null) {
-						Logger.write("Name: " + n.getDef().getName() + " - " + n.getDef().getId()
-								+ " || Location: " + n.getLocation() + " Disctance: "
-								+ n.distanceTo());
+						Logger.write("Name: " + n.getDef().getName() + " || ID: " + n.getDef().getId()
+								+ " || " + n.getLocation() + " || Disctance: "
+								+ n.distanceTo(), LogType.DEBUG);
 					}
 				}
 				break;
@@ -87,13 +87,13 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Players":
 				for (final Player p : Players.getPlayers()) {
 					if (p != null) {
-						Logger.write("Name: " + p.getName() + " || Location: " + p.getLocation()
-								+ " Distance: " + p.distanceTo());
+						Logger.write("Name: " + p.getName() + " || "+ p.getLocation()
+								+ " || Distance: " + p.distanceTo(), LogType.DEBUG);
 					}
 				}
 				break;
 			case "Location":
-				Logger.write("Location: " + Players.myPlayer().getLocation());
+				Logger.write(""+Players.myPlayer().getLocation(), LogType.DEBUG);
 				break;
 			case "Bank":
 				break;
@@ -132,7 +132,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 
 									Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: "
 											+ cmd3 + " cmd4 :" + cmd4
-											+ " id: " + id);
+											+ " id: " + id, LogType.DEBUG);
 									try {
 										Thread.sleep(500);
 									} catch (final InterruptedException e) {
