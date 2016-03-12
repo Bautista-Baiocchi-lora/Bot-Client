@@ -54,7 +54,7 @@ public class Int {
 				if (f.getName().equals(field)) {
 					if (f.getType().toString().equals("class [I")) {
 						final Object arr = f.get(obj);
-						final int cmd = (int) Array.get(arr, 1);
+						final int cmd = (int) Array.get(arr, index);
 						return cmd;
 					}
 				}

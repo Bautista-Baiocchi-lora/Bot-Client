@@ -32,7 +32,7 @@ public class Menu {
 		sendAction(actionId, character.getIndex(), 0, 0);
 	}
 
-	//244
+	//244 1107-516-
 	
 	
 	
@@ -43,10 +43,10 @@ public class Menu {
 			actionId = 900;
 			break;
 		case 2:
-			actionId = 900;
+			actionId = 516;
 			break;
 		case 3:
-			actionId = 900;
+			actionId = 1107;
 			break;
 		case 4:
 			actionId = 1226;

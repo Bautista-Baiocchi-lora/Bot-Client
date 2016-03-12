@@ -127,6 +127,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 				actionThread = new Thread() {
 					@Override
 					public void run() {
+						
 						while (!actionThread.isInterrupted()) {
 							Logger.write("Action Listener Started!", LogType.CLIENT);
 							while (!actionThread.isInterrupted()) {
@@ -167,7 +168,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 				if (s != null) {
 					if (s.distanceTo() < 15) {
 						Logger.write("Found Stall: "+s.getId(), LogType.SCRIPT);
-						s.interact(2);
+						s.interact(1);
 					}
 				}
 			}
