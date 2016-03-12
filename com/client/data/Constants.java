@@ -15,7 +15,13 @@ public class Constants {
 	public static String playerClass = "at";
 	public static String itemClass = "X";
 	public static String RSInterfaceClass = "ax";
+	public static String dequeClass = "af";
+	public static String nodeClass = "ad";
+	public static String groundClass = "O";
 
+	
+	
+	
 	// CLIENT FIELDS//
 	public static String openInterfaceID = "A";
 	public static String doAction = "m";
@@ -31,6 +37,8 @@ public class Constants {
 	public static String playerArray = "cA";
 	public static String myPlayer = "L";
 	public static String loopCycle = "Q";
+	public static String groundArray = "bD";
+	
 	// CHARACTER FIELDS//
 	public static String animation = "D";
 	public static String absX = "aa";
@@ -52,10 +60,23 @@ public class Constants {
 	public static String getNpcID = "k";
 
 	// ITEM FIELDS//
-	public static String itemID = "X";
+	public static String itemID = "c";
 
 	// RSINTERFACE FIELDS//
 	public static String interfaceItems = "X";
 	public static String interfaceStacks = "W";
 	public static String interfaceCache = "l";
+	
+	//DEQUE FIELDS//
+	public static String head = "a";
+	
+	
+	//NODE FIELDS//
+	public static String next = "al";
+
+	
+	//GROUND FIELDS//
+	
+	
+	
 }

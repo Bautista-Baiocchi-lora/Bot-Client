@@ -15,9 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.client.api.method.Game;
+import com.client.api.method.GroundItems;
 import com.client.api.method.Inventory;
 import com.client.api.method.Npcs;
 import com.client.api.method.Players;
+import com.client.api.wrappers.GroundItem;
 import com.client.api.wrappers.Item;
 import com.client.api.wrappers.Npc;
 import com.client.api.wrappers.Player;
@@ -74,7 +76,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Npcs":
 				for (final Npc n : Npcs.getNpcs()) {
 					if (n != null) {
-						Logger.write("Name: " + n.getDef().getName() + " || ID: " + n.getDef().getId()
+						Logger.write("Npc Name: " + n.getDef().getName() + " || ID: " + n.getDef().getId()
 								+ " || " + n.getLocation() + " || Disctance: "
 								+ n.distanceTo(), LogType.DEBUG);
 					}
@@ -83,11 +85,16 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Objects":
 				break;
 			case "Ground Items":
+				for(GroundItem g : GroundItems.getGroundItems()) {
+					if(g != null) {
+						Logger.write("GroundItem ID: "+g.getId()+" || "+g.getLocation()+ " || "+g.distanceTo());
+					}
+				}
 				break;
 			case "Players":
 				for (final Player p : Players.getPlayers()) {
 					if (p != null) {
-						Logger.write("Name: " + p.getName() + " || "+ p.getLocation()
+						Logger.write("Player Name: " + p.getName() + " || "+ p.getLocation()
 								+ " || Distance: " + p.distanceTo(), LogType.DEBUG);
 					}
 				}
@@ -111,7 +118,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 						@Override
 						public void run() {
 							while (!actionThread.isInterrupted()) {
-								Logger.write("Action Listener Started!");
+								Logger.write("Action Listener Started!", LogType.CLIENT);
 								while (!actionThread.isInterrupted()) {
 									final int id = Int.getInstance().getFromIntArray(
 											Constants.mainClass,
@@ -130,9 +137,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 											Constants.mainClass,
 											Constants.menuActionCmd4, client.getClient(), 1);
 
-									Logger.write("cmd1: " + cmd1 + " cmd2: " + cmd2 + " cmd3: "
-											+ cmd3 + " cmd4 :" + cmd4
-											+ " id: " + id, LogType.DEBUG);
+									Logger.write("ID: "+id+ " || Action #1: "+cmd1+ " || Action #2: "+cmd2+" || Action #3: "+cmd3+" || Action #4:"+cmd4, LogType.DEBUG);
 									try {
 										Thread.sleep(500);
 									} catch (final InterruptedException e) {
@@ -147,7 +152,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 				} else {
 					actionThread.interrupt();
 					actionThread = null;
-					Logger.write("Action Listener Stopped.");
+					Logger.write("Action Listener Stopped.", LogType.CLIENT);
 				}
 				break;
 			case "Test":

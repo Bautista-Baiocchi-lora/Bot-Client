@@ -1,11 +1,11 @@
 package com.client.api.method;
 
 import java.lang.reflect.Method;
-
 import com.client.core.Client;
 import com.client.data.Constants;
 import com.client.data.Variables;
 import com.client.test.Int;
+import com.client.test.Objects;
 
 public class Game {
 
@@ -77,4 +77,7 @@ public class Game {
 		Int.getInstance().setIntArray(main, Constants.menuActionID, clientObj, index,
 				value);
 	}
+    public static Object[][][] getGroundItems() {
+        return (Object[][][]) Objects.getInstance().get3DObjectArray(Constants.mainClass, Constants.groundArray, client.getClient(), Constants.dequeClass);
+    }
 }
