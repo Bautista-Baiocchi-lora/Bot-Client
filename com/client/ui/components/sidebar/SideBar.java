@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import com.client.core.Engine;
 import com.client.data.Variables;
+import com.client.ui.components.Scroller;
 import com.client.ui.components.sidebar.panels.AboutPanel;
 import com.client.ui.components.sidebar.panels.DebugPanel;
 import com.client.ui.components.sidebar.panels.RunPanel;
@@ -28,7 +29,7 @@ public class SideBar extends JPanel implements ActionListener {
 	private final SideBar sideBar;
 	private final GridBagConstraints constraints;
 	private final JButton hide, settings, run, debug, about;
-	private JPanel currentPanel;
+	private Scroller currentPane;
 
 	public SideBar() {
 		sideBar = this;
@@ -62,24 +63,24 @@ public class SideBar extends JPanel implements ActionListener {
 		final String command = e.getActionCommand();
 		switch (command) {
 			case "settings":
-				switchPanel(new SettingsPanel());
+				switchPane(new Scroller(new SettingsPanel()));
 				hide.setVisible(true);
 				break;
 			case "hide":
-				Variables.getEngine().getBotFrame().remove(currentPanel);
-				currentPanel = null;
+				Variables.getEngine().getBotFrame().remove(currentPane);
+				currentPane = null;
 				hide.setVisible(false);
 				break;
 			case "run":
-				switchPanel(new RunPanel());
+				switchPane(new Scroller(new RunPanel()));
 				hide.setVisible(true);
 				break;
 			case "debug":
-				switchPanel(new DebugPanel());
+				switchPane(new Scroller(new DebugPanel()));
 				hide.setVisible(true);
 				break;
 			case "about":
-				switchPanel(new AboutPanel());
+				switchPane(new Scroller(new AboutPanel()));
 				hide.setVisible(true);
 				break;
 			default:
@@ -143,14 +144,14 @@ public class SideBar extends JPanel implements ActionListener {
 		about.addActionListener(this);
 	}
 
-	private final void switchPanel(final JPanel panel) {
+	private final void switchPane(final Scroller pane) {
 		final JFrame frame = Variables.getEngine().getBotFrame();
-		if (currentPanel != null) {
-			if (!currentPanel.equals(panel)) {
-				frame.remove(currentPanel);
+		if (currentPane != null) {
+			if (!currentPane.equals(pane)) {
+				frame.remove(currentPane);
 			}
 		}
-		currentPanel = panel;
-		frame.add(panel, BorderLayout.CENTER);
+		currentPane = pane;
+		frame.add(pane, BorderLayout.CENTER);
 	}
 }

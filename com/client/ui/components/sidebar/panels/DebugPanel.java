@@ -41,7 +41,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.ipady = 15;
 		constraints.ipadx = 10;
-		constraints.insets = new Insets(10, 0, 0, 0);
+		constraints.insets = new Insets(15, 0, 0, 0);
 
 		titleLabel = new JLabel("Debug", SwingConstants.CENTER);
 		interfaces = new JButton("Interface");
