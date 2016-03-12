@@ -5,8 +5,8 @@ import java.lang.reflect.Method;
 import com.client.core.Client;
 import com.client.data.Constants;
 import com.client.data.Variables;
-import com.client.test.Int;
-import com.client.test.Objects;
+import com.client.reflection.Int;
+import com.client.reflection.Objects;
 
 public class Game {
 

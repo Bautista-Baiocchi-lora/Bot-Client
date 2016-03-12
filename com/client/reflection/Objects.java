@@ -1,4 +1,4 @@
-package com.client.test;
+package com.client.reflection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

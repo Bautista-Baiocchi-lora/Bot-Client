@@ -82,7 +82,8 @@ public class Constants {
 	public static String interactiveObjects = "l";
 	
 	//INTERACTIVE OBJECTS FIELDS//
-	public static String getHash = "m";
+	public static String getObjectHash = "m";
+	public static String getObjectId = "o";
 
 	//WORLD CONTROLLER FIELDS//
 	public static String worldGroundArray = "i";

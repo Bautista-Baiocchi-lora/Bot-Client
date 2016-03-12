@@ -1,8 +1,8 @@
 package com.client.api.wrappers;
 
 import com.client.data.Constants;
-import com.client.test.Longs;
-import com.client.test.Strings;
+import com.client.reflection.Longs;
+import com.client.reflection.Strings;
 
 public class NpcDef {
 	private final Object npcdef;

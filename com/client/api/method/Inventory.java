@@ -7,7 +7,7 @@ import com.client.api.wrappers.Item;
 import com.client.core.Client;
 import com.client.data.Constants;
 import com.client.data.Variables;
-import com.client.test.Objects;
+import com.client.reflection.Objects;
 
 public class Inventory {
 	public static final int INVENTORY_INDEX = 3214;

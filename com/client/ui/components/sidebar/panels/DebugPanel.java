@@ -28,7 +28,7 @@ import com.client.api.wrappers.SceneObject;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
-import com.client.test.Int;
+import com.client.reflection.Int;
 import com.client.ui.components.logger.LogType;
 import com.client.ui.components.logger.Logger;
 
@@ -39,7 +39,6 @@ public class DebugPanel extends JPanel implements ActionListener {
 	private final JButton interfaces, npcs, objects, groundItems, players, location, bank, inventory, actions, test;
 	private final JLabel titleLabel;
 	private final Client client = Engine.client;
-
 	public DebugPanel() {
 		instance = this;
 
@@ -112,6 +111,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 			Logger.write("" + Players.myPlayer().getLocation(), LogType.DEBUG);
 			break;
 		case "Bank":
+			
 			break;
 		case "Inventory":
 			Logger.write("Inventory Count: " + Inventory.getCount(), LogType.DEBUG);
@@ -162,14 +162,14 @@ public class DebugPanel extends JPanel implements ActionListener {
 			break;
 		case "Test":
 
-			final Npc[] n1 = Npcs.getNearest("Man");
-			Npc n = null;
-			if (n1.length > 0) {
-				n = n1[0];
-			}
-			if (n != null) {
-				Logger.write("Found: " + n.getDef().getName());
-				n.interact(1);
+			for (final SceneObject s : SceneObjects.getSceneObjects()) {
+				if(s.getId() == 4875)
+				if (s != null) {
+					if (s.distanceTo() < 15) {
+						Logger.write("Found Stall: "+s.getId(), LogType.SCRIPT);
+						s.interact(2);
+					}
+				}
 			}
 
 			break;

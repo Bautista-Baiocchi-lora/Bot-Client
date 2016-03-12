@@ -1,7 +1,7 @@
 package com.client.api.wrappers;
 
 import com.client.data.Constants;
-import com.client.test.Int;
+import com.client.reflection.Int;
 
 public class SceneObjectTile {
     private Object node;
@@ -12,8 +12,12 @@ public class SceneObjectTile {
     }
 
     public int getHash() {
-        return Int.getInstance().getInt(Constants.interactiveObjectsClass, Constants.getHash, node);
+        return Int.getInstance().getInt(Constants.interactiveObjectsClass, Constants.getObjectHash, node);
 
     }
-    
+
+    public int getId() {
+        return Int.getInstance().getInt(Constants.interactiveObjectsClass, Constants.getObjectId, node);
+
+    }
 }

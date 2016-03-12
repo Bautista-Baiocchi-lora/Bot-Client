@@ -7,7 +7,7 @@ import com.client.api.method.Menu;
 import com.client.api.method.Npcs;
 import com.client.api.method.Players;
 import com.client.data.Constants;
-import com.client.test.Int;
+import com.client.reflection.Int;
 
 public class Character {
 	private final Object character;

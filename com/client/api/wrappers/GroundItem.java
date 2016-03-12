@@ -4,6 +4,7 @@ package com.client.api.wrappers;
 
 import com.client.api.locatable.Locatable;
 import com.client.api.locatable.Tile;
+import com.client.api.method.Calculations;
 import com.client.api.method.Game;
 
 public class GroundItem implements Locatable {
@@ -41,10 +42,9 @@ public class GroundItem implements Locatable {
 
 
     @Override
-    public int distanceTo() {
-        return 0;
-    }
-
+	public final int distanceTo() {
+		return (int) Calculations.distanceTo(getLocation());
+	}
 
     public int getId() {
 

@@ -3,8 +3,8 @@ package com.client.api.wrappers;
 import com.client.api.method.Npcs;
 import com.client.api.method.Players;
 import com.client.data.Constants;
-import com.client.test.Int;
-import com.client.test.Strings;
+import com.client.reflection.Int;
+import com.client.reflection.Strings;
 
 public class Player extends Character {
 	int index;

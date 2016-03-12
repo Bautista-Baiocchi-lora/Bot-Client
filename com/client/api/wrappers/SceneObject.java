@@ -4,6 +4,7 @@ import com.client.api.locatable.Locatable;
 import com.client.api.locatable.Tile;
 import com.client.api.method.Calculations;
 import com.client.api.method.Game;
+import com.client.api.method.Menu;
 
 public class SceneObject implements Locatable {
 
@@ -22,12 +23,12 @@ public class SceneObject implements Locatable {
 	}
 
 	public final int getId() {
-		return accessor.getHash() >> 14 & 0x7FFF;
+		return accessor.getId();
 	}
 
-//	public void interact(int actionIndex) {
-//		Menu.interact(this, actionIndex);
-//	}
+	public void interact(int actionIndex) {
+		Menu.interact(this, actionIndex);
+	}
 
 
 	public final Tile getLocation() {

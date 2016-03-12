@@ -9,7 +9,7 @@ import com.client.api.wrappers.Npc;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
-import com.client.test.Objects;
+import com.client.reflection.Objects;
 
 public class Npcs {
 	public static Client client = Engine.client;

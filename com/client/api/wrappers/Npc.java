@@ -1,7 +1,7 @@
 package com.client.api.wrappers;
 
 import com.client.data.Constants;
-import com.client.test.Objects;
+import com.client.reflection.Objects;
 
 public class Npc extends Character {
 	int index;

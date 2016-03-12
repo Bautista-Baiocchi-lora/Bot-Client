@@ -1,7 +1,7 @@
 package com.client.api.wrappers;
 
 import com.client.data.Constants;
-import com.client.test.Int;
+import com.client.reflection.Int;
 
 public class OtherItem {
 	private final Object node;

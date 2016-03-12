@@ -1,4 +1,4 @@
-package com.client.test;
+package com.client.reflection;
 
 public class ReflectionShit {
 
