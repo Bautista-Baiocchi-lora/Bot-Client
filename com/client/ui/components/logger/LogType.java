@@ -2,7 +2,7 @@ package com.client.ui.components.logger;
 
 public enum LogType {
 
-	CLINET("Client"), SCRIPT("Script");
+	CLIENT("Client"), SCRIPT("Script"), DEBUG("Debug");
 
 	private String type;
 

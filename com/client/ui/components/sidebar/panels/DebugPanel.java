@@ -15,14 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.client.api.method.Game;
+import com.client.api.method.Inventory;
 import com.client.api.method.Npcs;
 import com.client.api.method.Players;
+import com.client.api.wrappers.Item;
 import com.client.api.wrappers.Npc;
 import com.client.api.wrappers.Player;
 import com.client.core.Client;
 import com.client.core.Engine;
 import com.client.data.Constants;
 import com.client.test.Int;
+import com.client.ui.components.logger.LogType;
 import com.client.ui.components.logger.Logger;
 
 public class DebugPanel extends JPanel implements ActionListener {
@@ -95,6 +98,12 @@ public class DebugPanel extends JPanel implements ActionListener {
 			case "Bank":
 				break;
 			case "Inventory":
+				Logger.write("Inventory Count: "+ Inventory.getCount(), LogType.DEBUG);
+				for(Item i : Inventory.getItems()) {
+					if(i != null) {
+						Logger.write("Item: "+i.getId() + " || Count: "+ i.getStackSize() + " || Slot: "+i.getSlot(), LogType.DEBUG);
+					}
+				}
 				break;
 			case "Actions":
 				if (actionThread == null) {
@@ -102,7 +111,6 @@ public class DebugPanel extends JPanel implements ActionListener {
 						@Override
 						public void run() {
 							while (!actionThread.isInterrupted()) {
-								// 27983909
 								Logger.write("Action Listener Started!");
 								while (!actionThread.isInterrupted()) {
 									final int id = Int.getInstance().getFromIntArray(
@@ -128,7 +136,6 @@ public class DebugPanel extends JPanel implements ActionListener {
 									try {
 										Thread.sleep(500);
 									} catch (final InterruptedException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 								}
@@ -140,7 +147,7 @@ public class DebugPanel extends JPanel implements ActionListener {
 				} else {
 					actionThread.interrupt();
 					actionThread = null;
-					Logger.write("Stopped the shit");
+					Logger.write("Action Listener Stopped.");
 				}
 				break;
 			case "Test":

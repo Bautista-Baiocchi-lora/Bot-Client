@@ -3,6 +3,7 @@ package com.client.core;
 import javax.swing.SwingUtilities;
 
 import com.client.ui.BotUI;
+import com.client.ui.components.logger.LogType;
 import com.client.ui.components.logger.Logger;
 
 public class Engine {
@@ -36,7 +37,7 @@ public class Engine {
 					client.initiate();
 					frame = new BotUI();
 					frame.setVisible(true);
-					Logger.write("We have sucessfully loaded all components.");
+					Logger.write("We have sucessfully loaded all components.", LogType.CLIENT);
 				}
 
 			});
